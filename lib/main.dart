@@ -25,18 +25,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Map<String, String> formValue = {
-    "num1" : "",
-    "num2" : "",
-    "num3" : "",
-};
+  Map<String, double> formValue = {
+    "num1" : 0,
+    "num2" : 0,
+    "num3" : 0,
+  };
+  double sumValue = 0;
+
 
   @override
   Widget build(BuildContext context) {
 
     myInputOnChange(inputKey, inputValue) {
       setState(() {
-        formValue.update(inputKey, (value) => inputValue);
+        formValue.update(inputKey, (value) => double.parse(inputValue));
+      });
+    }
+
+    addAllNumbers() {
+      setState(() {
+        sumValue = formValue['num1']! + formValue['num2']! + formValue['num3']!;
       });
     }
 
@@ -52,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              'The sum is: ',
+              'The sum is: $sumValue ',
               style: headTextStyle(),
             ),
             const SizedBox(height: 25.0),
@@ -77,13 +85,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 //set value to num3
                 myInputOnChange("num3", value);
               },
+
               decoration: appInputStyle('Third Number'),
             ),
             const SizedBox(height: 15.0),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  addAllNumbers();
+                  // print(sumValue);
+                },
                 style: appButtonStyle(),
                 child: const Text(
                   'Add',
