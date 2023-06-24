@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Sum App',
       home: MyHomePage(),
     );
@@ -25,8 +25,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Map<String, String> formValue = {
+    "num1" : "",
+    "num2" : "",
+    "num3" : "",
+};
+
   @override
   Widget build(BuildContext context) {
+
+    myInputOnChange(inputKey, inputValue) {
+      setState(() {
+        formValue.update(inputKey, (value) => inputValue);
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sum App'),
@@ -44,14 +57,26 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 25.0),
             TextFormField(
+              onChanged: (value){
+                //set value to num1
+              myInputOnChange("num1", value);
+              },
               decoration: appInputStyle('First Number'),
             ),
             const SizedBox(height: 15.0),
             TextFormField(
+              onChanged: (value){
+                //set value to num2
+                myInputOnChange("num2", value);
+              },
               decoration: appInputStyle('Second Number'),
             ),
             const SizedBox(height: 15.0),
             TextFormField(
+              onChanged: (value){
+                //set value to num3
+                myInputOnChange("num3", value);
+              },
               decoration: appInputStyle('Third Number'),
             ),
             const SizedBox(height: 15.0),
